@@ -14,8 +14,15 @@ class BooksController < ApplicationController
     flash[:notice] = "Book was successfully updated."
     redirect_to book_path(@book.id)
     flash[:notice] = "error"
+    
+    @book = Book.new(book.id)
+    if @book.save
+      redirect_to book_path(@book.id)
+    else
+    ender :new
+    end
   end
-
+  
   def show
     @book = Book.find(params[:id])
   end
